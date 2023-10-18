@@ -2,7 +2,7 @@ from django.shortcuts import render
 from sms.models import Message
 from rest_framework.views import APIView
 from .serializers import SMSSerializer
-from django.http import JsonResponse
+from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -21,7 +21,7 @@ class RetrieveSMS(APIView):
         else:
             messages = Message.objects.filter(created_by=self.request.user)
         if len(messages) == 0:
-            return JsonResponse({"message": "No any messages found"}, status=404)
+            return Response({"message": "No any messages found"}, status=404)
 
         serializer = SMSSerializer(messages, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)

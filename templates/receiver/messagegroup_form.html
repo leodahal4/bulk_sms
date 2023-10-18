@@ -1,0 +1,35 @@
+{% extends 'sms/index.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <section class="py-5">
+      <div class="row">
+        <!-- Basic Form-->
+        <div class="col-lg-12 mb-5">
+          <div class="card">
+            <div class="card-header">
+              <a href="{% url 'sms:messagegroup_list' %}"
+                 data-toggle="tooltip" data-placement="bottom" title="Back"
+                 class="pull-left">
+                <i class="fa fa-chevron-circle-left mr-3" aria-hidden="true"></i>
+              </a>
+              <h3 class="h6 text-uppercase mb-0">MessageGroup Form</h3>
+            </div>
+            <div class="card-body">
+              <p>Create/Update MessageGroup</p>
+
+              {% include 'sms/form.html' %}
+              Sample : <a href="{% static '/administration/contact.xlsx' %}">Sample </a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}
+{%block script%}
+    {%endblock script%}

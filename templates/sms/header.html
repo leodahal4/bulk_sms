@@ -1,0 +1,32 @@
+{% load static %}
+
+<header class="header">
+  <nav class="navbar navbar-expand-lg px-4 py-2 navbar-dark bg-dark"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fa fa-align-left text-white"></i></a><a href="{% url 'sms:sms_admin' %}" class="navbar-brand font-weight-bold text-uppercase text-base">SMS Dashboard</a>
+    <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+      <li class="nav-item">
+        <form id="searchForm" class="ml-auto d-lg-block">
+          <div class="form-group position-relative mb-0">
+            <button type="submit" style="top: 4px; left: 6px; border-radius: 100%;" class="position-absolute bg-white border-0 p-0"><i class="fa fa-search text-dark text-lg" aria-hidden="true"></i></button>
+            <input type="search" placeholder="Search ..." class="form-control form-control-sm border-0 no-shadow pl-6" style="padding-left: 30px;">
+          </div>
+        </form>
+      </li>
+
+      <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{% static 'administration/img/logo.png' %}" alt="{{ request.user }}" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+        <div aria-labelledby="userInfo" class="dropdown-menu">
+            <a href="#" class="dropdown-item">
+                <strong class="d-block text-uppercase headings-font-family">{{ request.user }}</strong>
+                <small>Qubit SMS</small>
+            </a>
+          <div class="dropdown-divider"></div>
+            <a href="#" data-toggle="modal" data-target="#logout-modal" class="dropdown-item">Logout</a>
+            <a href="{% url 'sms:password_change' %}"  class="dropdown-item">Change Password</a>
+        </div>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+ {% include 'sms/logout.html' %}
+

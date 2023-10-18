@@ -1,0 +1,46 @@
+{% extends 'sms/base.html' %}
+
+{% load static %}
+
+{% block main_body %}
+
+    <!-- navbar-->
+
+  {% include 'sms/header.html' %}
+
+    <div class="d-flex align-items-stretch">
+
+        {% include 'sms/sidebar_menu.html' %}
+
+      <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container-fluid">
+
+          {% block content %}
+
+      <section class="py-4">
+
+        <div class="col-12 mb-4">
+
+          <div class="row justify-content-center align-items-center">
+            <div class="text-center">
+              <img src="{% static 'price/img/logo.png' %}"><br><br>
+              <h6 class="font-weight-light">नेपाल सरकार</h6>
+              <h5 class="font-weight-light"> उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय</h5>
+              <h2 class="font-weight-normal">परिपत्र प्रणाली</h2>
+            </div>
+          </div>
+        </div>
+        {{credits}}
+      </section>
+
+
+        {% endblock content %}
+
+      </div>
+    </div>
+    </div>
+  {% include 'sms/footer.html' %}
+
+
+
+{% endblock main_body %}

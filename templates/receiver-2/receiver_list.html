@@ -1,0 +1,110 @@
+<!--
+=========================================================
+* Soft UI Dashboard - v1.0.3
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+{% extends 'sms-2/base.html' %}
+
+{% load static %}
+
+{% block title %} Recipients {% endblock title %}
+
+{% block main_body %}
+  <!-- Sidebar -->
+  {% include 'sms-2/sidebar.html' %}
+  <!-- Sidebar Ends -->
+
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+  <!-- Navbar -->
+  {% include 'sms-2/header.html' %}
+  <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 float-left">
+                <h6>Recipients</h6>
+                </div>
+                <div class="col-lg-6 float-right text-right">
+                  <a class="btn btn-primary" style="position: relative; left: 89%;" href="{% url 'sms:receiver_create' %}" data-toggle="tooltip" data-placement="top" title="Create">
+                    <i class="fa fa-plus" style="border-radius:50%"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receiver / Phone Number</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added by</th>
+                      <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> -->
+                      <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Is In Group?</th> -->
+                      <th class="text-secondary opacity-7" style="font-size:smaller;" colspan="2">Actions</th>
+                      <!-- <th class="text-secondary opacity-7"></th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for receiver in receivers %}
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            <img src="{% static 'assets/img/team-2.jpg' %}" class="avatar avatar-sm me-3" alt="user1">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ receiver.full_name }}</h6>
+                            <p class="text-xs text-secondary mb-0">{{ receiver.contact_number }}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ receiver.created_by }}</p>
+                        <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
+                      </td>
+                      <!-- <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm bg-gradient-success">Online</span>
+                      </td> -->
+                      <!-- <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{receiver__group.group_name }}</span>
+                      </td> -->
+                      <td class="align-middle">
+                          <a href="{% url 'sms:receiver_update' receiver.pk %}" type="submit" class="text-secondary font-weight-bold text-xs hide-button-style" data-toggle="tooltip" data-original-title="Edit user">
+                            Edit
+                          </a>
+                      </td>
+                      <td class="align-middle">
+                        <form action="{% url 'sms:receiver_delete' receiver.pk %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" name="confirm_delete" class="text-secondary font-weight-bold text-xs hide-button-style" data-toggle="tooltip" data-original-title="Delete recipient" onclick="return confirm('Are you sure you want to delete this item?')">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+{% endblock main_body %}

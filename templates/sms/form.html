@@ -1,0 +1,45 @@
+{% load tags %}
+
+
+<form action="" method="post" enctype="multipart/form-data">
+ {% if form.errors %}
+    <div>
+        <p class="text-danger">Please correct the error below.</p>
+    </div>
+ {% endif %}
+{% for field in form %}
+    <div class="form-group">
+        <label class="control-label col-sm-12" for="{{ field.id_for_label }}">
+            {{ field.label_tag }}
+            {% if field.field.required %} <span class="text-danger text-lg"> * </span> {% endif %}
+        </label>
+        <div class="col-sm-12">{{ field|change_class_valid:'is-invalid' }}</div>
+        <p class="help">{{ field.errors }}</p>
+      {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+      {% endif %}
+    </div>
+{% endfor %}
+
+    {% if formset %}
+
+        <fieldset>
+            {% if formset_title is not None %}
+             <legend class="p-2 col-md-6 bg-primary mb-2 text-white">{{formset_title}}</legend>
+            {% endif %}
+
+            {{ formset.management_form }}
+            {{ formset.non_form_errors }}
+            {% for form in formset %}
+                {{ form.id }}
+                <div class="inline {{ formset.prefix }}">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </fieldset>
+      {% endif %}
+{% csrf_token %}
+<div class="form-group">
+  <button type="submit" class="btn btn-primary float-right">{{button_value|default:'ADD / UPDATE'}}</button>
+</div>
+</form>

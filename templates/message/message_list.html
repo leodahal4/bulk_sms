@@ -1,0 +1,60 @@
+{% extends "sms/index.html" %}
+ {% load static tags %}
+
+{% block content %}
+    <section class="py-5">
+      <div class="row">
+        <div class="col-lg-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <div class="col-lg-6 pull-left">
+                <h6 class="text-uppercase mb-0">Message List</h6>
+              </div>
+              <div class="col-lg-6 pull-right text-right">
+                <a class="btn btn-primary" href="{% url 'sms:message_create' %}"
+                   data-toggle="tooltip" data-placement="top" title="Create"
+                  ><i class="fa fa-plus" style="border-radius:50%"></i
+                ></a>
+              </div>
+            </div>
+            <div class="card-body">
+              <table
+                class=" display table table-bordered"
+                id="detTable"
+                style="width: 100%;"
+              >
+                <thead class="thead-dark">
+                  <tr>
+                    <th>#</th>
+                    <th>Message</th>
+                    <th>Receivers</th>
+                    <th>Network</th>
+                    <th>Receivers Count</th>
+                    <th>Sms Credit</th>
+                    <th>Delivery Status</th>
+                    <th>Send On</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for msg in object_list %}
+                  <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td>{{msg.message}}</td>
+                    <td>{{msg.recipients}}</td>
+                    <td>NTC</td>
+                    <td>{{msg.recipients|recipients}} </td>
+                    <td>{{msg.recipients|recipients}}</td>
+                    <td>{% if msg.is_sent == True %} Delivered {% else %} Queued {% endif %}</td>
+                    <td>{{ msg.created_at }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% include 'sms/pagination.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}

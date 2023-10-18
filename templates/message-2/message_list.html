@@ -1,0 +1,92 @@
+<!--
+=========================================================
+* Soft UI Dashboard - v1.0.3
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+{% extends 'sms-2/base.html' %}
+
+{% load static tags %}
+
+{% block title %} Message List {% endblock title %}
+
+{% block main_body %}
+  <!-- Sidebar -->
+  {% include 'sms-2/sidebar.html' %}
+  <!-- Sidebar Ends -->
+
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+  <!-- Navbar -->
+  {% include 'sms-2/header.html' %}
+  <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 float-left">
+                <h6>Message List</h6>
+                </div>
+                <div class="col-lg-6 float-right text-right">
+                  <a class="btn btn-primary" style="position: relative; left: 89%;" href="{% url 'sms:message_create' %}" data-toggle="tooltip" data-placement="top" title="Create">
+                    <i class="fa fa-plus" style="border-radius:50%"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Message</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receivers</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Network</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receivers Count</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sms Credit</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Delivery Status</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Send On</th>
+                      <!-- <th class="text-secondary opacity-7"></th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for msg in object_list %}
+                  <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td>{{msg.message}}</td>
+                    <td>{{msg.recipients}}</td>
+                    <td>NTC</td>
+                    <td>{{msg.recipients|recipients}} </td>
+                    <td>{{msg.recipients|recipients}}</td>
+                    <td>{% if msg.is_sent == True %}
+                          Delivered 
+                        {% else %}
+                          Queued
+                        {% endif %}
+                    </td>
+                    <td>{{ msg.created_at }}</td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock main_body %}

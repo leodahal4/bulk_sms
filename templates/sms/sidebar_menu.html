@@ -1,0 +1,219 @@
+{% load static %}
+
+<div id="sidebar" class="sidebar py-3 bg-dark">
+
+    <ul class="sidebar-menu list-unstyled">
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'sms:sms_admin' %}"
+                 class="sidebar-link text-white {% if  request.get_full_path == url_name %}active{% endif %}">
+                  <i class="fa fa-home mr-3 text-white"></i>
+                  <span>Home</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'sms:user_list' %}"
+                 class="sidebar-link text-white {% if '/sms/users/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-user mr-3 text-white" aria-hidden="true"></i>
+                  <span>Users</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="#" data-toggle="collapse" data-target="#receiver"
+                 aria-expanded="{% if '/sms/receiver/' in request.get_full_path %}true{% else %}false{% endif %}"
+                 aria-controls="pages"
+                 class="sidebar-link text-white {% if '/sms/receiver/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-info-circle mr-3 text-white"></i>
+                  <span>Receivers</span>
+              </a>
+            <div id="receiver"
+                 class="collapse bg-dark-dark {% if '/sms/receiver/' in request.get_full_path %}show{% else %}{% endif %}">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                    <a href="{% url 'sms:receiver_list' %}"
+                       class="sidebar-link text-white pl-lg-5 {% if '/sms/receivers/' in request.get_full_path %} dropdown-active{% endif %}">
+                        Receivers
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'sms:messagegroup_list' %}"
+                       class="sidebar-link text-white pl-lg-5 {% if '/sms/messagegroups/' in request.get_full_path %} dropdown-active{% endif %}">
+                       Groups
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+        <li class="sidebar-list-item top-level-item">
+              <a href="#" data-toggle="collapse" data-target="#message"
+                 aria-expanded="{% if url_name == 'message' %}true{% else %}false{% endif %}"
+                 aria-controls="pages"
+                 class="sidebar-link text-white {% if url_name == 'message' %}true{% else %}false{% endif %}">
+                  <i class="fa fa-envelope-o mr-3 text-white"></i>
+                  <span>Messages</span>
+              </a>
+            <div id="message"
+                 class="collapse bg-dark-dark {% if url_name == 'message' %}show{% else %}{% endif %}">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                    <a href="{% url 'sms:message_create' %}"
+                       class="sidebar-link text-white pl-lg-5 {% if url_name == 'message'  %} dropdown-active{% endif %}">
+                        Create Message
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'sms:message_list' %}"
+                       class="sidebar-link text-white pl-lg-5 {% if url_name == 'message'  %} dropdown-active{% endif %}">
+                       Message List
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+
+        {% comment %}
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'resources:resources' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/resource' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-clipboard mr-3 text-white"></i>
+                  <span>Resources</span>
+              </a>
+          </li>
+
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:foreign-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/foreign-nomination/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-globe mr-3 text-white" aria-hidden="true"></i>
+                  <span>Foreign Nomination</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'gallery:gallery' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/gallery/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-picture-o mr-3 text-white" aria-hidden="true"></i>
+                  <span>Gallery</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:agreement-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/agreement/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-handshake-o mr-3 text-white" aria-hidden="true"></i>
+                  <span>Agreements</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:e-bulletin' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/e-bulletin' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-file mr-3 text-white"></i>
+                  <span>E-bulletins</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:executive-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/executive/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-users mr-3 text-white" ></i>
+                  <span>Executives</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:spokesperson-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/spokesperson/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-users mr-3 text-white" ></i>
+                  <span>SpokesPerson</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:imageslider-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/imageslider/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-picture-o mr-3 text-white"></i>
+                  <span>Image Slider</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'about_ministry:branch-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/branch/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-building mr-3 text-white"></i>
+                  <span>Branch/ Division</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="#" data-toggle="collapse" data-target="#other-departments"
+                 aria-expanded="{% if '/moics-admin/general-director/' in request.get_full_path or '/moics-admin/other-department/' in request.get_full_path or '/moics-admin/department-office/' in request.get_full_path %}true{% else %}false{% endif %}"
+                 aria-controls="other-departments"
+                 class="sidebar-link text-white
+                         {% if '/moics-admin/general-director/' in request.get_full_path or '/moics-admin/other-department/' in request.get_full_path or '/moics-admin/department-office/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-building mr-3 text-white" aria-hidden="true"></i>
+                  <span>Other Departments</span>
+              </a>
+            <div id="other-departments"
+                 class="collapse bg-dark-dark {% if '/moics-admin/general-director/' in request.get_full_path or '/moics-admin/other-department/' in request.get_full_path or '/moics-admin/department-office/' in request.get_full_path %}show{% else %}{% endif %}">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                    <a href="{% url 'home:general-director-list' %}" class="sidebar-link text-white pl-lg-5 {% if '/moics-admin/general-director/' in request.get_full_path %}dropdown-active{% endif %}">General Director</a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'home:other-department-list' %}" class="sidebar-link text-white pl-lg-5 {% if '/moics-admin/other-department/' in request.get_full_path %}dropdown-active{% endif %}">Departments</a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'home:department-office-list' %}" class="sidebar-link text-white pl-lg-5 {% if '/moics-admin/department-office/' in request.get_full_path %}dropdown-active{% endif %}">Department Offices</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:report-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/progress-report/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-bar-chart mr-3 text-white" aria-hidden="true"></i>
+                  <span>Progress Report</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:nepal-wto-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/nepal-wto/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-handshake-o mr-3 text-white" aria-hidden="true"></i>
+                  <span>Nepal & WTO</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:faq-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/faq/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-question-circle-o mr-3 text-white" aria-hidden="true"></i>
+                  <span>FAQ</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'home:link-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/useful-link/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-link mr-3 text-white" aria-hidden="true"></i>
+                  <span>Useful Links</span>
+              </a>
+          </li>
+
+          <li class="sidebar-list-item top-level-item">
+              <a href="{% url 'about_ministry:budget-list' %}"
+                 class="sidebar-link text-white {% if '/moics-admin/budget/' in request.get_full_path %}active{% endif %}">
+                  <i class="fa fa-money mr-3 text-white" aria-hidden="true"></i>
+                  <span>Budget</span>
+              </a>
+          </li>
+        {% endcomment %}
+
+    </ul>
+</div>

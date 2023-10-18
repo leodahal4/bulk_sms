@@ -1,0 +1,39 @@
+<div class="pagination">
+	{% if page_obj.has_other_pages %}
+	<ul class="pagination">
+	{%if page_obj.number|add:'-10' in page_obj.paginator.page_range %}
+	    <li class="page-item"><a href="?page={{ page_obj.number|add:'-10' }}" class="page-link"><<<</a></li>
+	    {% endif %}
+	{% if page_obj.has_previous %}
+	    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+	{% else %}
+	    <li class="disabled page-item"><span class="page-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></span></li>
+	{% endif %}
+
+	{% if page_obj.number|add:'-4' > 1 %}
+	    <li class="page-item"><a href="?page={{ page_obj.number|add:'-5' }}" class="page-link">&hellip;</a></li>
+	{% endif %}
+
+	{% for i in page_obj.paginator.page_range %}
+	    {% if page_obj.number == i %}
+	        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+	    {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+	        <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+	    {% endif %}
+	{% endfor %}
+
+	{% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+	    <li class="page-item"><a href="?page={{ page_obj.number|add:'5' }}" class="page-link">&hellip;</a></li>
+	{% endif %}
+
+	{% if page_obj.has_next %}
+	    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+	{% else %}
+	    <li class="disabled page-item"><span class="page-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+	{% endif %}
+	{%if page_obj.number|add:'10' in page_obj.paginator.page_range %}
+	    <li class="page-item"><a href="?page={{ page_obj.number|add:'10' }}" class="page-link">>>></a></li>
+	    {% endif %}
+	</ul>
+	{% endif %}
+</div>

@@ -1,0 +1,79 @@
+{% extends "sms/index.html" %}
+ {% load static %}
+
+{% block content %}
+    <section class="py-5">
+      <div class="row">
+        <div class="col-lg-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h6 class="text-uppercase mb-0">SMS User List</h6>
+                </div>
+                <div class="col-lg-6 text-right ml-auto">
+                  <a class="btn btn-primary" href="{% url 'sms:user_create' %}"
+                     data-toggle="tooltip" data-placement="top" title="Create">
+                     <i class="fa fa-plus" style="border-radius:50%"></i>
+                  </a>
+                </div>
+              </div>
+             
+            </div>
+            <div class="card-body">
+              <table
+                class=" display table table-bordered"
+                id="detTable"
+                style="width: 100%;"
+              >
+                <thead class="thead-dark">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>E-mail</th>
+                    <th class="action_column">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for user in object_list %}
+                  {% if user.groups.all.0.name == 'sms' %}
+                  <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+
+                    <td>{{user.username}}</td>
+
+                    <td>{{user.email}}</td>
+
+                    <td style="white-space:nowrap;">
+                      <form action="{% url 'sms:user_delete' user.pk %}" method="post">
+                        {% csrf_token %}
+                          {% if request.user.is_superuser %}
+                        <a href="{% url 'sms:password_reset_user' user.id%}" class="btn btn-success">
+                                                            Reset Password                                                        </a>
+                                                    </a>
+                        <button class="btn btn-danger btn-circle btn-sm m-1" type="submit"
+                                data-toggle="tooltip" data-placement="left" title="Delete"
+                                onclick="return confirm('Are you sure you want to delete this item?')">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        {% endif %}
+                      </form>
+                    </td>
+
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% include 'sms/pagination.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}
+

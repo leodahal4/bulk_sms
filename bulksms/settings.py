@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'api'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 MIDDLEWARE = [
     'sms.middleware.RequestMiddleware',
     'django.middleware.security.SecurityMiddleware',

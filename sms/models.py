@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from shortuuid.django_fields import ShortUUIDField
 
 
 AUDIT_TYPE_CHOICES = (
@@ -28,8 +29,10 @@ USER_TYPE = (
 
 
 class User(AbstractUser):
+    idx = ShortUUIDField(length=16, max_length=40, unique=True, editable=False)
     user_type = models.IntegerField(choices=USER_TYPE, default=1, null=True, blank=True)
     created_by = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
 
     def is_superadmin(self):
         return True if self.user_type == 1 else False 

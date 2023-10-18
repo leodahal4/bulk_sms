@@ -732,7 +732,10 @@ class MessageList(AuthMixin,ListView):
     paginate_by = 100
 
     def get_queryset(self):
-        qs = Message.objects.filter(created_by=self.request.user, deleted_at=None)
+        if self.request.user.is_superadmin:
+            qs = Message.objects.filter(deleted_at=None)
+        else:
+            qs = Message.objects.filter(created_by=self.request.user, deleted_at=None)
         return qs
 
     def get_context_data(self, **kwargs):

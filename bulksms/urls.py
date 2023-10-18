@@ -22,13 +22,14 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from sms.forms import CustomPasswordResetForm, CustomPasswordResetConfirmForm
 
 urlpatterns = [
+    path("api/v1/", include("api.urls")),
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/dashboard/login/')),
     path('dashboard/', include("sms.urls")),
     path('reset-password/', PasswordResetView.as_view(form_class=CustomPasswordResetForm), name='reset-password'),
     path('password-reset-done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(form_class=CustomPasswordResetConfirmForm), name='password_reset_confirm'),
-    path('password-reset-complete/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('password-reset-complete/', PasswordResetCompleteView.as_view(), name='password_reset_complete')
 ]
 
 if settings.DEBUG:
